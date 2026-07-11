@@ -11,6 +11,10 @@ from app.services.gemini_service import (
 
 router = APIRouter()
 
+class AskRequest(BaseModel):
+    question: str
+    transactions: TransactionInput
+
 
 def build_dataframe(transactions):
     data = {
