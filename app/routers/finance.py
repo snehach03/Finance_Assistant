@@ -11,8 +11,6 @@ from app.services.gemini_service import (
 
 router = APIRouter()
 
-
-
 def build_dataframe(transactions):
     data = {
         "dates": transactions.dates,
