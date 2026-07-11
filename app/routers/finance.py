@@ -11,9 +11,6 @@ from app.services.gemini_service import (
 
 router = APIRouter()
 
-class AskRequest(BaseModel):
-    question: str
-    transactions: TransactionInput
 
 
 def build_dataframe(transactions):
@@ -47,9 +44,11 @@ def summary(request: SummaryRequest):
     return {"summary": ai_summary}
 
 
+from app.models.schemas import QuestionRequest, CategorizeRequest, SummaryRequest, AskRequest
+
 @router.post("/ask")
-def ask(request: QuestionRequest, transactions: CategorizeRequest):
-    df = build_dataframe(transactions.transactions)
+def ask(request: AskRequest):
+    df = build_dataframe(request.transactions)
 
     unique_descriptions = df["descriptions"].unique().tolist()
     mapping = categorize_transactions_batch(unique_descriptions)
@@ -64,3 +63,4 @@ def ask(request: QuestionRequest, transactions: CategorizeRequest):
 @router.get("/health")
 def health():
     return {"status": "ok"}
+
