@@ -19,3 +19,7 @@ class CategorizeRequest(BaseModel):
 
 class SummaryRequest(BaseModel):
     transactions: TransactionInput
+
+class AskRequest(BaseModel):
+    question: str
+    transactions: TransactionInput
